@@ -18,12 +18,18 @@ defmodule TrelloTributeWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+    # Добавляем catch-all для React роутинга
+    get "/*path", PageController, :home
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", TrelloTributeWeb do
-  #   pipe_through :api
-  # end
+  # API маршруты
+  scope "/api", TrelloTributeWeb do
+    pipe_through :api
+
+    scope "/v1" do
+      post "/registrations", Api.V1.RegistrationController, :create
+    end
+  end
 
   # Enable LiveDashboard and Swoosh mailbox preview in development
   if Application.compile_env(:trello_tribute, :dev_routes) do
