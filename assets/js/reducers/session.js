@@ -1,0 +1,16 @@
+import Constants from '../constants';
+
+const initialState = {
+  currentUser: null,
+  error: null,
+};
+
+export default function sessionReducer(state = initialState, action) {
+  switch (action.type) {
+    case Constants.CURRENT_USER:
+      return { ...state, currentUser: action.currentUser, error: null };
+
+    default:
+      return state;
+  }
+}
