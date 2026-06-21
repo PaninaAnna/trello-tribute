@@ -41,9 +41,22 @@ function getHeaders() {
 }
 
 export function httpPost(url, data) {
+  // Не отправляем токен для регистрации и входа
+  const headers = {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+  };
+
+  if (!url.includes('/registrations') && !url.includes('/sessions')) {
+    const token = localStorage.getItem('phoenixAuthToken');
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+  }
+
   return fetch(url, {
     method: 'POST',
-    headers: getHeaders(),
+    headers: headers,
     body: JSON.stringify(data),
   })
   .then(checkStatus)
@@ -51,18 +64,38 @@ export function httpPost(url, data) {
 }
 
 export function httpGet(url) {
+  const headers = {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+  };
+
+  const token = localStorage.getItem('phoenixAuthToken');
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`;
+  }
+
   return fetch(url, {
     method: 'GET',
-    headers: getHeaders(),
+    headers: headers,
   })
   .then(checkStatus)
   .then(parseJSON);
 }
 
 export function httpDelete(url) {
+  const headers = {
+    'Accept': 'application/json',
+    'Content-Type': 'application/json',
+  };
+
+  const token = localStorage.getItem('phoenixAuthToken');
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`;
+  }
+
   return fetch(url, {
     method: 'DELETE',
-    headers: getHeaders(),
+    headers: headers,
   })
   .then(checkStatus)
   .then(parseJSON);

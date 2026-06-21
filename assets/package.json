@@ -2,8 +2,8 @@
   "name": "assets",
   "version": "1.0.0",
   "scripts": {
-    "build": "esbuild js/App.jsx --bundle --outdir=../priv/static/assets --format=esm --loader:.jsx=jsx --loader:.js=jsx --outbase=js --entry-names=[name]",
-    "watch": "esbuild js/App.jsx --bundle --outdir=../priv/static/assets --format=esm --loader:.jsx=jsx --loader:.js=jsx --outbase=js --entry-names=[name] --watch"
+    "build": "esbuild js/App.jsx --bundle --outdir=../priv/static/assets --format=esm --loader:.jsx=jsx --loader:.js=jsx --outbase=js --entry-names=app",
+    "watch": "esbuild js/App.jsx --bundle --outdir=../priv/static/assets --format=esm --loader:.jsx=jsx --loader:.js=jsx --outbase=js --entry-names=app --watch"
   },
   "dependencies": {
     "@reduxjs/toolkit": "^2.12.0",

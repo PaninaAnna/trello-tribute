@@ -1,38 +1,58 @@
 import React, { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 import Actions from '../../actions/sessions';
 
 function SessionsNew() {
   const dispatch = useDispatch();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+  const error = useSelector(state => state.session.error);
+  const [email, setEmail] = useState('john@example.com');
+  const [password, setPassword] = useState('12345678');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Clicked!');
-    dispatch(Actions.signIn(email, password));
+    
+    dispatch(Actions.signIn(email, password, navigate)); // <-- передаем navigate
   };
 
   return (
-    <div>
-      <h2>Sign In</h2>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
-        <br />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <br />
-        <button type="submit">Sign in</button>
-      </form>
+    <div className="view-container sessions new">
+      <main>
+        <header>
+          <div className="logo">Trello Tribute</div>
+        </header>
+
+        <form onSubmit={handleSubmit}>
+          {error && <div className="error">{error}</div>}
+
+          <div className="field">
+            <input
+              type="email"
+              name="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+
+          <div className="field">
+            <input
+              type="password"
+              name="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+
+          <button type="submit">Sign in</button>
+        </form>
+
+        <Link to="/sign_up">Create new account</Link>
+      </main>
     </div>
   );
 }

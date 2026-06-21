@@ -8,6 +8,7 @@ defmodule TrelloTributeWeb.Api.V1.CurrentUserController do
 
     conn
     |> put_status(:ok)
+    |> put_resp_header("content-type", "application/json")
     |> json(%{
       id: user.id,
       first_name: user.first_name,

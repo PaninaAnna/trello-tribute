@@ -1,16 +1,12 @@
 import Constants from '../constants';
-import { httpPost } from '../utils';
+import { httpPost, httpGet, httpDelete } from '../utils';
 
 const Actions = {
-  signIn: (email, password) => {
-    console.log('signIn called with:', email, password); // <-- добавляем
-    
+  signIn: (email, password, navigate) => {
     return dispatch => {
-      console.log('Sending POST to /api/v1/sessions'); // <-- добавляем
       
       httpPost('/api/v1/sessions', { session: { email, password } })
         .then((response) => {
-          console.log('Response received:', response); // <-- добавляем
           
           localStorage.setItem('phoenixAuthToken', response.jwt);
 
@@ -19,10 +15,10 @@ const Actions = {
             currentUser: response.user,
           });
 
-          window.location.href = '/';
+          // Используем react-router навигацию
+          navigate('/');
         })
         .catch((error) => {
-          console.log('Error:', error); // <-- добавляем
           
           dispatch({
             type: Constants.SESSIONS_ERROR,
@@ -31,7 +27,33 @@ const Actions = {
         });
     };
   },
-  // ... остальное
+
+  signOut: () => {
+    return dispatch => {
+      localStorage.removeItem('phoenixAuthToken');
+      dispatch({ type: Constants.USER_SIGNED_OUT });
+      window.location.href = '/sign_in';
+    };
+  },
+
+  currentUser: () => {
+    return dispatch => {
+      
+      httpGet('/api/v1/current_user')
+        .then((user) => {
+          
+          dispatch({
+            type: Constants.CURRENT_USER,
+            currentUser: user,
+          });
+        })
+        .catch((error) => {
+          
+          localStorage.removeItem('phoenixAuthToken');
+          window.location.href = '/sign_in';
+        });
+    };
+  },
 };
 
 export default Actions;
