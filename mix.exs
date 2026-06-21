@@ -21,7 +21,7 @@ defmodule TrelloTribute.MixProject do
   def application do
     [
       mod: {TrelloTribute.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :guardian]
     ]
   end
 
@@ -66,7 +66,8 @@ defmodule TrelloTribute.MixProject do
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.2.0"},
       {:bandit, "~> 1.5"},
-      {:bcrypt_elixir, "~> 3.0"}
+      {:bcrypt_elixir, "~> 3.0"},
+      {:guardian, "~> 2.3"}
     ]
   end
 

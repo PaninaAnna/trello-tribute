@@ -14,21 +14,56 @@ export function setDocumentTitle(title) {
   document.title = `Trello Tribute - ${title}`;
 }
 
-export function httpPost(url, data) {
+function checkStatus(response) {
+  if (response.ok) {
+    return response;
+  } else {
+    return response.json().then(err => { throw err; });
+  }
+}
+
+function parseJSON(response) {
+  return response.json();
+}
+
+function getHeaders() {
   const headers = {
     'Accept': 'application/json',
     'Content-Type': 'application/json',
   };
+  
+  const token = localStorage.getItem('phoenixAuthToken');
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`;
+  }
+  
+  return headers;
+}
 
+export function httpPost(url, data) {
   return fetch(url, {
     method: 'POST',
-    headers: headers,
+    headers: getHeaders(),
     body: JSON.stringify(data),
   })
-  .then(response => {
-    if (!response.ok) {
-      return response.json().then(err => { throw err; });
-    }
-    return response.json();
-  });
+  .then(checkStatus)
+  .then(parseJSON);
+}
+
+export function httpGet(url) {
+  return fetch(url, {
+    method: 'GET',
+    headers: getHeaders(),
+  })
+  .then(checkStatus)
+  .then(parseJSON);
+}
+
+export function httpDelete(url) {
+  return fetch(url, {
+    method: 'DELETE',
+    headers: getHeaders(),
+  })
+  .then(checkStatus)
+  .then(parseJSON);
 }

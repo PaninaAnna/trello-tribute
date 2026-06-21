@@ -4,16 +4,16 @@ import { Provider } from 'react-redux';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { store } from './store';
 import RegistrationsNew from './views/registrations/New';
+import SessionsNew from './views/sessions/New';
 import '../css/app.css';
 
 function App() {
   return (
     <div>
-      <h1>Trello Tribute</h1>
       <Routes>
         <Route path="/" element={<div>Home</div>} />
         <Route path="/sign_up" element={<RegistrationsNew />} />
-        <Route path="/sign_in" element={<div>Sign In</div>} />
+        <Route path="/sign_in" element={<SessionsNew />} />
       </Routes>
     </div>
   );

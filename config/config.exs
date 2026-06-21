@@ -24,19 +24,12 @@ config :trello_tribute, TrelloTributeWeb.Endpoint,
 
 # Configure LiveView
 config :phoenix_live_view,
-  # the attribute set on all root tags. Used for Phoenix.LiveView.ColocatedCSS.
   root_tag_attribute: "phx-r"
 
 # Configure the mailer
-#
-# By default it uses the "Local" adapter which stores the emails
-# locally. You can see the emails in your browser, at "/dev/mailbox".
-#
-# For production it's recommended to configure a different adapter
-# at the `config/runtime.exs`.
 config :trello_tribute, TrelloTribute.Mailer, adapter: Swoosh.Adapters.Local
 
-# Configure esbuild (the version is required)
+# Configure esbuild
 config :esbuild,
   version: "0.25.4",
   trello_tribute: [
@@ -46,7 +39,7 @@ config :esbuild,
     env: %{"NODE_PATH" => [Path.expand("../deps", __DIR__), Mix.Project.build_path()]}
   ]
 
-# Configure tailwind (the version is required)
+# Configure tailwind
 config :tailwind,
   version: "4.3.0",
   trello_tribute: [
@@ -57,6 +50,11 @@ config :tailwind,
     cd: Path.expand("..", __DIR__),
     env: %{"NODE_PATH" => [Path.expand("../deps", __DIR__), Mix.Project.build_path()]}
   ]
+
+# Configure Guardian for JWT authentication
+config :trello_tribute, TrelloTribute.Guardian,
+  issuer: "trello_tribute",
+  secret_key: "QpvThnbdqo9f6/NhEQpbXmSOJLjDePOEpLjRRw7I9sYBbsyMQUvIHiXPh0AGT8/Y"
 
 # Configure Elixir's Logger
 config :logger, :default_formatter,
