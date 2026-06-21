@@ -1,0 +1,19 @@
+{
+  "name": "assets",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "esbuild js/App.jsx --bundle --outdir=../priv/static/assets --format=esm --loader:.jsx=jsx --loader:.js=jsx",
+    "watch": "esbuild js/App.jsx --bundle --outdir=../priv/static/assets --format=esm --loader:.jsx=jsx --loader:.js=jsx --watch"
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^2.12.0",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "react-redux": "^9.3.0",
+    "react-router-dom": "^7.18.0",
+    "redux": "^5.0.1"
+  },
+  "devDependencies": {
+    "esbuild": "^0.19.0"
+  }
+}
