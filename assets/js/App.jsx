@@ -9,6 +9,8 @@ import SessionsNew from './views/sessions/New';
 import HomeIndexView from './views/home/Index';
 import '../css/app.css';
 
+window.store = store;
+
 function App() {
   return (
     <Routes>
