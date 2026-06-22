@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Outlet } from 'react-router-dom'; // <-- добавляем Outlet
 import Actions from '../actions/sessions';
 import Header from '../layouts/Header';
 
-function AuthenticatedContainer({ children }) {
+function AuthenticatedContainer() {
+  console.log('AuthenticatedContainer rendered'); // <-- для отладки
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const currentUser = useSelector(state => state.session.currentUser);
@@ -29,7 +31,7 @@ function AuthenticatedContainer({ children }) {
     <div className="application-container">
       <Header />
       <div className="main-container">
-        {children}
+        <Outlet /> {/* <-- вместо children */}
       </div>
     </div>
   );

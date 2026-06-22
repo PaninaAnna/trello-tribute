@@ -56,6 +56,9 @@ config :trello_tribute, TrelloTribute.Guardian,
   issuer: "trello_tribute",
   secret_key: "QpvThnbdqo9f6/NhEQpbXmSOJLjDePOEpLjRRw7I9sYBbsyMQUvIHiXPh0AGT8/Y"
 
+config :guardian, Guardian.Plug,
+  module: TrelloTribute.Guardian
+
 # Configure Elixir's Logger
 config :logger, :default_formatter,
   format: "$time $metadata[$level] $message\n",

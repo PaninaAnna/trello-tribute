@@ -4,7 +4,10 @@ defmodule TrelloTribute.Accounts do
   """
 
   alias TrelloTribute.Accounts.User
+  alias TrelloTribute.Board
   alias TrelloTribute.Repo
+
+  import Ecto.Query  # <-- добавляем
 
   def create_user(attrs) do
     %User{}
@@ -32,5 +35,17 @@ defmodule TrelloTribute.Accounts do
           {:error, "Invalid email or password"}
         end
     end
+  end
+
+  # Функции для досок
+  def get_user_boards(user) do
+    query = from b in Board, where: b.user_id == ^user.id
+    Repo.all(query)
+  end
+
+  def create_board(user, attrs) do
+    %Board{user_id: user.id}
+    |> Board.changeset(attrs)
+    |> Repo.insert()
   end
 end
